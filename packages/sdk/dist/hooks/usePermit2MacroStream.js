@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { createPublicClient, http } from "viem";
 import { base, baseSepolia } from "viem/chains";
 import { useAccount, useWalletClient, useChainId } from "wagmi";
-import { BASE_MAINNET_CONFIG } from "../config.js";
+import { AVALANCHE_MAINNET_CONFIG } from "../config.js";
 import { DEFAULT_MONTHLY_AMOUNT } from "../constants.js";
 import { createStreamViaPermit2Macro, facilitatorPermit2Relay } from "../core/clearMacroPermit2.js";
 import { createStreamViaClearMacro, facilitatorRelay } from "../core/clearMacro.js";
@@ -22,7 +22,7 @@ function getChain(chainId) {
  * Reads the macro/provider/relay path from the facilitator's `/info`.
  */
 export function usePermit2MacroStream(options) {
-    const { facilitatorUrl, recipient, monthlyAmount: monthlyAmountStr, config = BASE_MAINNET_CONFIG, } = options;
+    const { facilitatorUrl, recipient, monthlyAmount: monthlyAmountStr, config = AVALANCHE_MAINNET_CONFIG, } = options;
     const monthlyAmount = monthlyAmountStr ? BigInt(monthlyAmountStr) : DEFAULT_MONTHLY_AMOUNT;
     // Underlying amount Permit2 must be allowed to pull (matches the SDK's default upgradeAmount).
     const decimalDiff = config.superToken.decimals - config.underlyingToken.decimals;

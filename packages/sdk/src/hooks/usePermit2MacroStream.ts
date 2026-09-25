@@ -4,7 +4,7 @@ import { base, baseSepolia } from "viem/chains";
 import { useAccount, useWalletClient, useChainId } from "wagmi";
 
 import type { SuperTokenConfig, Balances } from "../types.js";
-import { BASE_MAINNET_CONFIG } from "../config.js";
+import { AVALANCHE_MAINNET_CONFIG } from "../config.js";
 import { DEFAULT_MONTHLY_AMOUNT } from "../constants.js";
 import { createStreamViaPermit2Macro, facilitatorPermit2Relay } from "../core/clearMacroPermit2.js";
 import { createStreamViaClearMacro, facilitatorRelay } from "../core/clearMacro.js";
@@ -74,7 +74,7 @@ export function usePermit2MacroStream(
     facilitatorUrl,
     recipient,
     monthlyAmount: monthlyAmountStr,
-    config = BASE_MAINNET_CONFIG,
+    config = AVALANCHE_MAINNET_CONFIG,
   } = options;
 
   const monthlyAmount = monthlyAmountStr ? BigInt(monthlyAmountStr) : DEFAULT_MONTHLY_AMOUNT;

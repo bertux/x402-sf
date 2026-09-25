@@ -1,7 +1,7 @@
 export { usePermit2MacroStream } from "./hooks/usePermit2MacroStream.js";
 export type { Permit2MacroStatus, ClearMacroFacilitatorInfo, UsePermit2MacroStreamOptions, UsePermit2MacroStreamReturn, } from "./hooks/usePermit2MacroStream.js";
 export type { SuperTokenConfig, FacilitatorInfo, Balances, ChainConfig, TokenConfig, UnderlyingTokenConfig, SuperfluidConfig, ClearMacroConfig, } from "./types.js";
-export { BASE_MAINNET_CONFIG, BASE_SEPOLIA_CONFIG, getConfig } from "./config.js";
+export { AVALANCHE_MAINNET_CONFIG, AVALANCHE_FUJI_CONFIG, getConfig } from "./config.js";
 export { SECONDS_PER_MONTH, DEFAULT_MONTHLY_AMOUNT, MIN_USDC_BALANCE } from "./constants.js";
 export { calculateFlowRate, formatFlowRateToMonthly, normalizeTxHash } from "./utils.js";
 export { fetchFacilitatorInfo } from "./core/facilitator.js";

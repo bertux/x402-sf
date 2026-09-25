@@ -20,7 +20,7 @@ export type {
 } from "./types.js";
 
 // Config
-export { BASE_MAINNET_CONFIG, BASE_SEPOLIA_CONFIG, getConfig } from "./config.js";
+export { AVALANCHE_MAINNET_CONFIG, AVALANCHE_FUJI_CONFIG, getConfig } from "./config.js";
 
 // Constants
 export { SECONDS_PER_MONTH, DEFAULT_MONTHLY_AMOUNT, MIN_USDC_BALANCE } from "./constants.js";
