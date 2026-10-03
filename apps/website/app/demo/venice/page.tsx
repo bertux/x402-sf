@@ -60,7 +60,7 @@ export default function VeniceChatPage() {
   const [isGeneratingChat, setIsGeneratingChat] = useState(false);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
 
-  const isOnBase = chainId === SUPER_TOKEN_CONFIG.chain.id;
+  const isOnNetwork = chainId === SUPER_TOKEN_CONFIG.chain.id;
 
   // Clear auth when wallet changes
   useEffect(() => {
@@ -237,7 +237,7 @@ export default function VeniceChatPage() {
                             <appkit-button />
                           </div>
                         </>
-                      ) : !isOnBase ? (
+                      ) : !isOnNetwork ? (
                         <>
                           <h3>Switch Network</h3>
                           <p>Please switch to {SUPER_TOKEN_CONFIG.chain.name} to continue</p>
@@ -294,11 +294,11 @@ export default function VeniceChatPage() {
                           ) : (
                             <>
                               <p>
-                                You need some <strong>USDC</strong> on Base to subscribe.<br />
+                                You need some <strong>USDC</strong> on Avalanche to subscribe.<br />
                                 Your balance: {formatUnits(balances.usdc ?? BigInt(0), 6)} USDC
                               </p>
                               <a
-                                href={`https://app.uniswap.org/swap?outputCurrency=${SUPER_TOKEN_CONFIG.underlyingToken.address}&chain=base`}
+                                href={`https://app.uniswap.org/swap?outputCurrency=${SUPER_TOKEN_CONFIG.underlyingToken.address}&chain=avalanche`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="subscribe-btn"

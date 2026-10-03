@@ -1,18 +1,18 @@
 import { createPublicClient, createWalletClient, http, type Chain, type Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { base, baseSepolia } from "viem/chains";
+import { avalanche, avalancheFuji } from "viem/chains";
 import { NETWORK_CONFIGS, type NetworkName } from "./config.js";
 
 // viem chain per supported network.
 const VIEM_CHAINS: Record<NetworkName, Chain> = {
-  base,
-  "base-sepolia": baseSepolia,
+  "avalanche-c": avalanche,
+  "avalanche-fuji": avalancheFuji,
 };
 
 // Per-network RPC override envs; fall back to the network's default public RPC from config.
 function rpcUrlFor(network: NetworkName): string {
   const envUrl =
-    network === "base" ? process.env.BASE_RPC_URL : process.env.BASE_SEPOLIA_RPC_URL;
+    network === "avalanche-c" ? process.env.AVALANCHE_RPC_URL : process.env.AVALANCHE_FUJI_RPC_URL;
   return envUrl ?? NETWORK_CONFIGS[network].chain.rpcUrl;
 }
 
@@ -23,7 +23,7 @@ function rpcUrlFor(network: NetworkName): string {
 // type-inference budgets (Vercel's build) that reconciliation fails — e.g.
 // "account { address: undefined } is not assignable to undefined" or the `authorizationList`
 // widening. Letting the type be inferred (as the original single-network factory did) keeps
-// it stable. `chain` is annotated as a single `Chain` (not the base|baseSepolia union) so the
+// it stable. `chain` is annotated as a single `Chain` (not the avalanche|avalancheFuji union) so the
 // inferred client's `chain` stays defined — x402's verify/settle need a chain-connected client.
 export function createNetworkClients(network: NetworkName, privateKey: Hex) {
   const chain: Chain = VIEM_CHAINS[network];

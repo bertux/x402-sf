@@ -20,12 +20,12 @@ export const AVALANCHE_MAINNET_CONFIG: SuperTokenConfig = {
     supportsEIP3009: true,
   },
   superfluid: {
-    cfaV1Forwarder: "0xcfA132E353cB4E398080B9700609bb008eceB125",
+    cfaV1Forwarder: "0x2CDd45c5182602a36d391F7F16DD9f8386C3bD8D",
     cfa: "0x6946c5B38Ffea373b0a2340b4AEf0De8F6782e58",
     host: "0x60377C7016E4cdB03C87EF474896C11cB560752C",
   },
-  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/base-mainnet/protocol-v1",
-  superfluidDashboardNetwork: "base",
+  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/avalanche-c/protocol-v1",
+  superfluidDashboardNetwork: "avalanche-c",
   clearMacro: {
     forwarder: "0xC1EaB73855155D4e021f7EB4f866996Bac2fe25e",
     createFlowMacro: "0xe703d8BAF38A7d8F72f4bC96A28f8ceC9BE2C707",
@@ -34,7 +34,7 @@ export const AVALANCHE_MAINNET_CONFIG: SuperTokenConfig = {
 
 export const AVALANCHE_FUJI_CONFIG: SuperTokenConfig = {
   chain: {
-    id: 431142,
+    id: 43113,
     name: "Avalanche Fuji",
     networkName: "avalanche-fuji",
     rpcUrl: "https://rpc-endpoints.superfluid.dev/avalanche-fuji",
@@ -52,12 +52,12 @@ export const AVALANCHE_FUJI_CONFIG: SuperTokenConfig = {
     supportsEIP3009: false,
   },
   superfluid: {
-    cfaV1Forwarder: "0xcfA132E353cB4E398080B9700609bb008eceB125",
+    cfaV1Forwarder: "0x2CDd45c5182602a36d391F7F16DD9f8386C3bD8D",
     cfa: "0x16843ac25Ccc58Aa7960ba05f61cBB17b36b130A",
     host: "0x85Fe79b998509B77BF10A8BD4001D58475D29386",
   },
-  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/base-sepolia/protocol-v1",
-  superfluidDashboardNetwork: "base-sepolia",
+  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/avalanche-fuji/protocol-v1",
+  superfluidDashboardNetwork: "avalanche-fuji",
   clearMacro: {
     forwarder: "0xC1EaB73855155D4e021f7EB4f866996Bac2fe25e",
     createFlowMacro: "0xAb0181Abadcc687C962b097722FD9365Cc7Db9C5",

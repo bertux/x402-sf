@@ -2,7 +2,7 @@ import type { Address } from "viem";
 
 /**
  * ClearMacroForwarderV1WithPermit2 — deterministic address across all supported
- * networks (Base mainnet + Sepolia included). Verified on-chain.
+ * networks (Avalanche C-Chain + Fuji included). Verified on-chain.
  */
 export const CLEAR_MACRO_FORWARDER_ADDRESS: Address =
   "0xC1EaB73855155D4e021f7EB4f866996Bac2fe25e";

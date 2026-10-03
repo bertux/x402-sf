@@ -5,7 +5,7 @@ export const PERMIT2_ADDRESS = "0x000000000022D473030F116dDEE9F6B43aC78BA3" as c
 
 /**
  * Minimal ABI for ClearMacroForwarderV1(WithPermit2).
- * Deployed at 0xC1EaB73855155D4e021f7EB4f866996Bac2fe25e on Base mainnet + Sepolia.
+ * Deployed at 0xC1EaB73855155D4e021f7EB4f866996Bac2fe25e on Avalanche C-Chain + Fuji.
  */
 export const clearMacroForwarderAbi = [
   {

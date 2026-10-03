@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { createPublicClient, http } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { avalanche, avalancheFuji } from "viem/chains";
 import { useAccount, useWalletClient, useChainId } from "wagmi";
-import { AVALANCHE_MAINNET_CONFIG } from "../config.js";
+import { AVALANCHE_FUJI_CONFIG } from "../config.js";
 import { DEFAULT_MONTHLY_AMOUNT } from "../constants.js";
 import { createStreamViaPermit2Macro, facilitatorPermit2Relay } from "../core/clearMacroPermit2.js";
 import { createStreamViaClearMacro, facilitatorRelay } from "../core/clearMacro.js";
@@ -10,9 +10,9 @@ import { checkPermit2Allowance, approvePermit2 } from "../core/permit2.js";
 import { fetchBalances } from "../core/balances.js";
 import { checkStream, fetchStreamUrl } from "../core/stream.js";
 function getChain(chainId) {
-    if (chainId === 84532)
-        return baseSepolia;
-    return base;
+    if (chainId === 43113)
+        return avalancheFuji;
+    return avalanche;
 }
 /**
  * One-signature stream creation via Permit2 + ClearMacro. The user signs a single Permit2
@@ -22,7 +22,7 @@ function getChain(chainId) {
  * Reads the macro/provider/relay path from the facilitator's `/info`.
  */
 export function usePermit2MacroStream(options) {
-    const { facilitatorUrl, recipient, monthlyAmount: monthlyAmountStr, config = AVALANCHE_MAINNET_CONFIG, } = options;
+    const { facilitatorUrl, recipient, monthlyAmount: monthlyAmountStr, config = AVALANCHE_FUJI_CONFIG, } = options;
     const monthlyAmount = monthlyAmountStr ? BigInt(monthlyAmountStr) : DEFAULT_MONTHLY_AMOUNT;
     // Underlying amount Permit2 must be allowed to pull (matches the SDK's default upgradeAmount).
     const decimalDiff = config.superToken.decimals - config.underlyingToken.decimals;

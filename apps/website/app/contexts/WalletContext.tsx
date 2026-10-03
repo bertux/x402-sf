@@ -2,9 +2,11 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { Hex, createWalletClient, custom, type WalletClient } from "viem";
-import { base } from "viem/chains";
+import { avalanche, avalancheFuji } from "viem/chains";
+import { IS_TESTNET } from "../config/supertoken";
 
-const BASE_CHAIN_ID_HEX = "0x2105"; // 8453
+const chain = IS_TESTNET ? avalancheFuji : avalanche;
+const CHAIN_ID_HEX = `0x${chain.id.toString(16)}`;
 
 interface WalletContextState {
   address: Hex | null;
@@ -31,17 +33,17 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
     setChainId(null);
   };
 
-  const ensureBaseNetwork = async () => {
+  const ensureNetwork = async () => {
     if (typeof window === "undefined" || !window.ethereum) {
       throw new Error("No injected wallet available. Please install Coinbase Wallet or MetaMask.");
     }
 
     const currentChainId = (await window.ethereum.request({ method: "eth_chainId" })) as string;
-    if (currentChainId !== BASE_CHAIN_ID_HEX) {
+    if (currentChainId !== CHAIN_ID_HEX) {
       try {
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: BASE_CHAIN_ID_HEX }],
+          params: [{ chainId: CHAIN_ID_HEX }],
         });
       } catch (switchError: any) {
         if (switchError.code === 4902) {
@@ -49,11 +51,11 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: BASE_CHAIN_ID_HEX,
-                chainName: "Base",
-                nativeCurrency: { name: "Ethereum", symbol: "ETH", decimals: 18 },
-                rpcUrls: ["https://mainnet.base.org"],
-                blockExplorerUrls: ["https://basescan.org"],
+                chainId: CHAIN_ID_HEX,
+                chainName: chain.name,
+                nativeCurrency: chain.nativeCurrency,
+                rpcUrls: [...chain.rpcUrls.default.http],
+                blockExplorerUrls: [chain.blockExplorers?.default.url],
               },
             ],
           });
@@ -73,7 +75,7 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error("No injected wallet available. Please install Coinbase Wallet or MetaMask.");
       }
 
-      await ensureBaseNetwork();
+      await ensureNetwork();
 
       const accounts = (await window.ethereum.request({ method: "eth_requestAccounts" })) as string[];
       if (!accounts || accounts.length === 0) {
@@ -83,13 +85,13 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
       const account = accounts[0] as Hex;
       const client = createWalletClient({
         account,
-        chain: base,
+        chain,
         transport: custom(window.ethereum),
       });
 
       setWalletClient(client);
       setAddress(account);
-      setChainId(base.id);
+      setChainId(chain.id);
     } catch (err: any) {
       setError(err?.message ?? "Failed to connect wallet");
       resetState();
@@ -115,7 +117,7 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
         const account = accounts[0] as Hex;
         const client = createWalletClient({
           account,
-          chain: base,
+          chain,
           transport: custom(window.ethereum!),
         });
         setWalletClient(client);
@@ -126,7 +128,7 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
     const handleChainChanged = (hexChainId: string) => {
       const numericChainId = Number(hexChainId);
       setChainId(numericChainId);
-      if (numericChainId !== base.id) {
+      if (numericChainId !== chain.id) {
         resetState();
       }
     };
@@ -138,13 +140,13 @@ export const WalletProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const accounts = (await window.ethereum!.request({ method: "eth_accounts" })) as string[];
         if (accounts.length > 0) {
-          await ensureBaseNetwork();
+          await ensureNetwork();
           const account = accounts[0] as Hex;
           setAddress(account);
-          setChainId(base.id);
+          setChainId(chain.id);
           const client = createWalletClient({
             account,
-            chain: base,
+            chain,
             transport: custom(window.ethereum!),
           });
           setWalletClient(client);

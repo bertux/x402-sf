@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, cookieToInitialState, type Config } from "wagmi";
 import { createAppKit } from "@reown/appkit/react";
 import { config, networks, projectId, wagmiAdapter } from "@/config";
-import { base } from "@reown/appkit/networks";
+import { avalancheFuji } from "@reown/appkit/networks";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +30,7 @@ if (!projectId) {
     adapters: [wagmiAdapter],
     projectId: projectId!,
     networks: networks,
-    defaultNetwork: base,
+    defaultNetwork: avalancheFuji,
     metadata,
     features: { 
       analytics: true,

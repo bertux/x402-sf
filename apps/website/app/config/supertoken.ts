@@ -2,7 +2,7 @@ import { AVALANCHE_MAINNET_CONFIG, AVALANCHE_FUJI_CONFIG } from "x402-sf";
 export type { SuperTokenConfig } from "x402-sf";
 export { AVALANCHE_MAINNET_CONFIG, AVALANCHE_FUJI_CONFIG } from "x402-sf";
 
-export const IS_TESTNET = process.env.NEXT_PUBLIC_TESTNET_MODE === "true";
+export const IS_TESTNET = process.env.NEXT_PUBLIC_TESTNET_MODE !== "false";
 
 export const SUPER_TOKEN_CONFIG = IS_TESTNET ? AVALANCHE_FUJI_CONFIG : AVALANCHE_MAINNET_CONFIG;
 

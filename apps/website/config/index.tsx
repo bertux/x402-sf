@@ -1,8 +1,8 @@
 import { cookieStorage, createStorage, http } from 'wagmi'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { avalanche } from '@reown/appkit/networks'
+import { avalancheFuji, avalanche } from '@reown/appkit/networks'
 import type { Chain } from 'viem'
-import { AVALANCHE_MAINNET_CONFIG } from 'x402-sf'
+import { AVALANCHE_FUJI_CONFIG } from 'x402-sf'
 
 // Read Project ID from environment variables
 export const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
@@ -12,8 +12,8 @@ if (!projectId) {
   throw new Error('Missing required environment variable: NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID. Get one at https://cloud.reown.com')
 }
 
-// Define supported networks - using Base for our Superfluid integration
-export const networks: [Chain, ...Chain[]] = [avalanche as unknown as Chain]
+// Define supported networks - using Avalanche for our Superfluid integration
+export const networks: [Chain, ...Chain[]] = [avalancheFuji as unknown as Chain]
 
 // Create the Wagmi adapter instance
 export const wagmiAdapter = new WagmiAdapter({
@@ -23,7 +23,7 @@ export const wagmiAdapter = new WagmiAdapter({
   networks,
   // Use Superfluid's RPC instead of the public default (which rate-limits / 429s).
   transports: {
-    [avalanche.id]: http(AVALANCHE_MAINNET_CONFIG.chain.rpcUrl),
+    [avalancheFuji.id]: http(AVALANCHE_FUJI_CONFIG.chain.rpcUrl),
   },
 })
 

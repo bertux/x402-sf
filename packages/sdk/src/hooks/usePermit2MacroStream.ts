@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { createPublicClient, http, type Chain, type Address } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { avalanche, avalancheFuji } from "viem/chains";
 import { useAccount, useWalletClient, useChainId } from "wagmi";
 
 import type { SuperTokenConfig, Balances } from "../types.js";
-import { AVALANCHE_MAINNET_CONFIG } from "../config.js";
+import { AVALANCHE_FUJI_CONFIG } from "../config.js";
 import { DEFAULT_MONTHLY_AMOUNT } from "../constants.js";
 import { createStreamViaPermit2Macro, facilitatorPermit2Relay } from "../core/clearMacroPermit2.js";
 import { createStreamViaClearMacro, facilitatorRelay } from "../core/clearMacro.js";
@@ -13,8 +13,8 @@ import { fetchBalances } from "../core/balances.js";
 import { checkStream, fetchStreamUrl } from "../core/stream.js";
 
 function getChain(chainId: number): Chain {
-  if (chainId === 84532) return baseSepolia;
-  return base;
+  if (chainId === 43113) return avalancheFuji;
+  return avalanche;
 }
 
 export type Permit2MacroStatus =
@@ -74,7 +74,7 @@ export function usePermit2MacroStream(
     facilitatorUrl,
     recipient,
     monthlyAmount: monthlyAmountStr,
-    config = AVALANCHE_MAINNET_CONFIG,
+    config = AVALANCHE_FUJI_CONFIG,
   } = options;
 
   const monthlyAmount = monthlyAmountStr ? BigInt(monthlyAmountStr) : DEFAULT_MONTHLY_AMOUNT;

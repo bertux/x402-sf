@@ -1,79 +1,79 @@
 export const IS_TESTNET = process.env.TESTNET_MODE === "true";
 
-const BASE_MAINNET_CONFIG = {
+const AVALANCHE_MAINNET_CONFIG = {
   chain: {
-    id: 8453,
-    name: "Base",
-    networkName: "base" as const,
-    rpcUrl: "https://rpc-endpoints.superfluid.dev/base-mainnet",
-    blockExplorerUrl: "https://basescan.org",
+    id: 43114,
+    name: "Avalanche",
+    networkName: "avalanche-c" as const,
+    rpcUrl: "https://rpc-endpoints.superfluid.dev/avalanche-c",
+    blockExplorerUrl: "https://snowtrace.io",
   },
   superToken: {
     symbol: "USDCx",
-    address: "0xd04383398dd2426297da660f9cca3d439af9ce1b" as const,
+    address: "0x288398f314d472b82c44855f3f6ff20b633c2a97" as const,
     decimals: 18,
   },
   underlyingToken: {
     symbol: "USDC",
-    address: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913" as const,
+    address: "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e" as const,
     decimals: 6,
     supportsEIP3009: true,
   },
   superfluid: {
     cfaV1Forwarder: "0xcfA132E353cB4E398080B9700609bb008eceB125" as const,
-    cfa: "0x19ba78B9cDB05A877718841c574325fdB53601bb" as const,
-    host: "0x4C073B3baB6d8826b8C5b229f3cfdC1eC6E47E74" as const,
+    cfa: "0x6946c5B38Ffea373b0a2340b4AEf0De8F6782e58" as const,
+    host: "0x60377C7016E4cdB03C87EF474896C11cB560752C" as const,
   },
-  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/base-mainnet/protocol-v1",
-  superfluidDashboardNetwork: "base",
+  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/avalanche-c/protocol-v1",
+  superfluidDashboardNetwork: "avalanche-c",
   // Plain x402 "exact" scheme: a one-time EIP-3009 USDC payment straight to the merchant's
   // payTo (no wrap, no stream). Uses the real USDC (EIP-3009-capable) — same address as
   // underlyingToken here, but kept separate since the two paths can diverge per network.
   x402: {
-    network: "base" as const,
+    network: "avalanche-c" as const,
     asset: {
-      address: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913" as const,
+      address: "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e" as const,
       decimals: 6,
-      eip712: { name: "USD Coin", version: "2" }, // USDC EIP-712 domain on Base mainnet
+      eip712: { name: "USD Coin", version: "2" }, // USDC EIP-712 domain on Avalanche C-Chain
     },
   },
 } as const;
 
-const BASE_SEPOLIA_CONFIG = {
+const AVALANCHE_FUJI_CONFIG = {
   chain: {
-    id: 84532,
-    name: "Base Sepolia",
-    networkName: "base-sepolia" as const,
-    rpcUrl: "https://rpc-endpoints.superfluid.dev/base-sepolia",
-    blockExplorerUrl: "https://sepolia.basescan.org",
+    id: 43113,
+    name: "Avalanche Fuji",
+    networkName: "avalanche-fuji" as const,
+    rpcUrl: "https://rpc-endpoints.superfluid.dev/avalanche-fuji",
+    blockExplorerUrl: "https://testnet.snowtrace.io",
   },
   superToken: {
     symbol: "fUSDCx",
-    address: "0x1650581f573ead727b92073b5ef8b4f5b94d1648" as const,
+    address: "0x00d05eed85bad962ba5237dd4afff12004455a8a" as const,
     decimals: 18,
   },
   underlyingToken: {
     symbol: "fUSDC",
-    address: "0x6b0dacea6a72e759243c99eaed840dee9564c194" as const,
+    address: "0x37a024d7f9ea1c7ebb658f5a14caeddd30f212b7" as const,
     decimals: 18,
     supportsEIP3009: false,
   },
   superfluid: {
-    cfaV1Forwarder: "0xcfA132E353cB4E398080B9700609bb008eceB125" as const,
-    cfa: "0x6836F23d6171D74Ef62FcF776655aBcD2bcd62Ef" as const,
-    host: "0x109412E3C84f0539b43d39dB691B08c90f58dC7c" as const,
+    cfaV1Forwarder: "0x2CDd45c5182602a36d391F7F16DD9f8386C3bD8D" as const,
+    cfa: "0x16843ac25Ccc58Aa7960ba05f61cBB17b36b130A" as const,
+    host: "0x85Fe79b998509B77BF10A8BD4001D58475D29386" as const,
   },
-  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/base-sepolia/protocol-v1",
-  superfluidDashboardNetwork: "base-sepolia",
-  // Plain x402 "exact" scheme on Base Sepolia. NOTE: the Superfluid fUSDC above does NOT
+  subgraphUrl: "https://subgraph-endpoints.superfluid.dev/avalanche-fuji/protocol-v1",
+  superfluidDashboardNetwork: "avalanche-fuji",
+  // Plain x402 "exact" scheme on Avalanche Fuji. NOTE: the Superfluid fUSDC above does NOT
   // support EIP-3009, so the exact scheme uses Circle's testnet USDC instead (free faucet:
-  // https://faucet.circle.com). This is what the standard x402 ecosystem uses on Base Sepolia.
+  // https://faucet.circle.com). This is what the standard x402 ecosystem uses on Avalanche Fuji.
   x402: {
-    network: "base-sepolia" as const,
+    network: "avalanche-fuji" as const,
     asset: {
-      address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e" as const,
+      address: "0x5425890298aed601595a70AB815c96711a31Bc65" as const,
       decimals: 6,
-      eip712: { name: "USDC", version: "2" }, // USDC EIP-712 domain on Base Sepolia
+      eip712: { name: "USDC", version: "2" }, // USDC EIP-712 domain on Avalanche Fuji
     },
   },
 } as const;
@@ -81,10 +81,10 @@ const BASE_SEPOLIA_CONFIG = {
 // Registry of every network this facilitator can serve, keyed by its x402 network name.
 // A single instance is multi-network: each request is routed to the matching config +
 // clients (see superfluid.ts / index.ts). Key strings MUST match the x402 package's
-// `Network` identifiers ("base", "base-sepolia") since verify/settle route on them.
+// `Network` identifiers ("avalanche-c", "avalanche-fuji") since verify/settle route on them.
 export const NETWORK_CONFIGS = {
-  base: BASE_MAINNET_CONFIG,
-  "base-sepolia": BASE_SEPOLIA_CONFIG,
+  "avalanche-c": AVALANCHE_MAINNET_CONFIG,
+  "avalanche-fuji": AVALANCHE_FUJI_CONFIG,
 } as const;
 
 export type NetworkName = keyof typeof NETWORK_CONFIGS;
@@ -96,6 +96,6 @@ export function isNetworkName(value: string): value is NetworkName {
 }
 
 // Back-compat single-network selection (kept for the startup default / non-multi callers).
-export const SUPER_TOKEN_CONFIG = IS_TESTNET ? BASE_SEPOLIA_CONFIG : BASE_MAINNET_CONFIG;
+export const SUPER_TOKEN_CONFIG = IS_TESTNET ? AVALANCHE_FUJI_CONFIG : AVALANCHE_MAINNET_CONFIG;
 
-export type SuperTokenConfig = typeof BASE_MAINNET_CONFIG;
+export type SuperTokenConfig = typeof AVALANCHE_MAINNET_CONFIG;
