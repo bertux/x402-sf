@@ -82,10 +82,10 @@ sure it's rendered inside your `WagmiProvider`.
 ```ts
 import { BASE_MAINNET_CONFIG, BASE_SEPOLIA_CONFIG, getConfig } from "x402-sf";
 
-const config = getConfig(isTestnet); // true → Base Sepolia, false → Base mainnet
+const config = getConfig(isTestnet); // true → Avalanche Sepolia, false → Avalanche mainnet
 ```
 
-| | Base mainnet | Base Sepolia |
+| | Avalanche mainnet | Avalanche Sepolia |
 | --- | --- | --- |
 | Chain ID | `8453` | `84532` |
 | Underlying | USDC | fUSDC |
@@ -169,7 +169,7 @@ The witness (`ClearMacro(address upgradeSuperToken,Action action,Security securi
 from `getPermit2WitnessTypeString` and checked against the on-chain `getPermit2WitnessStructHash`
 before signing, so a mismatch throws rather than producing an unverifiable signature.
 
-Config: the forwarder address (`config.clearMacro.forwarder`) is preset for Base mainnet
+Config: the forwarder address (`config.clearMacro.forwarder`) is preset for Avalanche mainnet
 and Sepolia. Set `config.clearMacro.createFlowMacro` (or pass `macroAddress`) once the
 macro is deployed on your target chain.
 

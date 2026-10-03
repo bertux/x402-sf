@@ -29,8 +29,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGIN
 const facilitatorPrivateKey = (privateKeyEnv.startsWith("0x") ? privateKeyEnv : `0x${privateKeyEnv}`) as Hex;
 
 // Which networks this instance serves. Default: all known networks (multi-network). Override
-// with ENABLED_NETWORKS (comma-separated x402 network names, e.g. "base,base-sepolia") to run
-// a single-network instance. RPC per network comes from BASE_RPC_URL / BASE_SEPOLIA_RPC_URL
+// with ENABLED_NETWORKS (comma-separated x402 network names, e.g. "avalanche-c,avalanche-fuji") to run
+// a single-network instance. RPC per network comes from AVALANCHE_RPC_URL / AVALANCHE_FUJI_RPC_URL
 // (each falls back to the network's default public RPC).
 const enabledNetworks: NetworkName[] = (() => {
   const raw = process.env.ENABLED_NETWORKS;
@@ -71,7 +71,7 @@ for (const net of enabledNetworks) {
 // Same operator EOA on every chain (shared key).
 const facilitatorAddress = privateKeyToAccount(facilitatorPrivateKey).address;
 // The network whose fields populate the back-compat top-level /info shape.
-const primaryNetwork: NetworkName = networks.has("base") ? "base" : enabledNetworks[0];
+const primaryNetwork: NetworkName = networks.has("avalanche-c") ? "avalanche-c" : enabledNetworks[0];
 
 // Read a bytes32 view function on the ClearMacroForwarder for a given network's client.
 //
@@ -337,7 +337,7 @@ app.post("/clearmacro/permit2-relay", async (c) => {
 // `payTo` in full; the facilitator only verifies the signature and (on settle)
 // submits the tx on-chain, paying gas. Any x402 client (x402-axios / x402-fetch)
 // can drive this. Delegates scheme logic to the official `x402` package, which
-// supports both `base` and `base-sepolia`.
+// supports both `avalanche-c` and `avalanche-fuji`.
 
 // Resolve the network context for an "exact"-scheme request, or return an error string.
 // The network is taken from paymentRequirements.network (per the x402 spec) and must be one

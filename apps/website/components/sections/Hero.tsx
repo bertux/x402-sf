@@ -47,7 +47,7 @@ import { usePermit2MacroStream } from 'x402-sf';
 const { status, subscribe } = usePermit2MacroStream({
   facilitatorUrl: FACILITATOR_URL,
   recipient: RECIPIENT_ADDRESS,
-  config: BASE_MAINNET_CONFIG,
+  config: AVALANCHE_FUJI_CONFIG,
 });
 
 // A single Permit2 signature pulls USDC, wraps it to

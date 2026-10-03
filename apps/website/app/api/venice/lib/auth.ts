@@ -1,12 +1,12 @@
 import { verifyMessage } from "viem";
 import { createPublicClient, http } from "viem";
-import { base } from "viem/chains";
+import { avalanche } from "viem/chains";
 
 // DAO Treasury. Must match NEXT_PUBLIC_RECIPIENT_ADDRESS used by the client demos.
 const RECIPIENT_ADDRESS =
   process.env.NEXT_PUBLIC_RECIPIENT_ADDRESS ?? "0xac808840f02c47C05507f48165d2222FF28EF4e1";
-const USDCX_ADDRESS = "0xd04383398dd2426297da660f9cca3d439af9ce1b";
-const CFA_ADDRESS = "0x19ba78B9cDB05A877718841c574325fdB53601bb";
+const USDCX_ADDRESS = "0x288398f314d472b82c44855f3f6ff20b633c2a97";
+const CFA_ADDRESS = "0x6946c5B38Ffea373b0a2340b4AEf0De8F6782e58";
 
 // Signature is valid for 1 hour
 const SIGNATURE_VALIDITY_MS = 60 * 60 * 1000;
@@ -102,9 +102,9 @@ export async function verifyAuthAndSubscription(
 async function verifySubscription(userAddress: string): Promise<boolean> {
   try {
     const publicClient = createPublicClient({
-      chain: base,
-      // Superfluid RPC — the public default (mainnet.base.org) rate-limits / 429s.
-      transport: http("https://rpc-endpoints.superfluid.dev/base-mainnet"),
+      chain: avalanche,
+      // Superfluid RPC — the public default (api.avax.network/ext/bc/C/rpc) rate-limits / 429s.
+      transport: http("https://rpc-endpoints.superfluid.dev/avalanche-c"),
     });
 
     const flowResult = (await publicClient.readContract({

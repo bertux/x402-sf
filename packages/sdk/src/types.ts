@@ -25,7 +25,7 @@ export interface SuperfluidConfig {
 }
 
 export interface ClearMacroConfig {
-  /** ClearMacroForwarderV1WithPermit2 — same address on Base mainnet + Sepolia. */
+  /** ClearMacroForwarderV1WithPermit2 — same address on Avalanche C-Chain + Fuji. */
   forwarder: Address;
   /**
    * CreateFlowMacro deployment (contracts/src/CreateFlowMacro.sol). Set per-chain

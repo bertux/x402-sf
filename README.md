@@ -1,6 +1,6 @@
 # Superfluid x402 Wrapper
 
-**100% [x402 spec-compliant](https://github.com/coinbase/x402/blob/main/specs/x402-specification.md)** facilitator on Base (mainnet + Sepolia). Serves plain x402 `"exact"` USDC payments **and** an optional Superfluid path that wraps USDC → USDCx and opens a stream.
+**100% [x402 spec-compliant](https://github.com/coinbase/x402/blob/main/specs/x402-specification.md)** facilitator on Avalanche (C-Chain + Fuji). Serves plain x402 `"exact"` USDC payments **and** an optional Superfluid path that wraps USDC → USDCx and opens a stream.
 
 ## What is this?
 
@@ -17,8 +17,8 @@ A reference implementation showing how to build an x402-compliant payment facili
 
 - Node.js 18+
 - pnpm
-- Wallet with ETH for gas on Base mainnet (facilitator)
-- USDC on Base mainnet (users)
+- Wallet with AVAX for gas on Avalanche C-Chain (facilitator)
+- USDC on Avalanche C-Chain (users)
 
 ### Installation
 
@@ -163,7 +163,7 @@ The facilitator (`apps/facilitator`) serves two independent payment paths:
 
 Both clearmacro endpoints route on the request's `chainId`.
 
-### Multi-network (Base mainnet + Base Sepolia)
+### Multi-network (Avalanche C-Chain + Avalanche Fuji)
 
 A single instance serves **all supported networks at once** and routes each request to the matching
 chain (verify/settle by `paymentRequirements.network`, clearmacro by `chainId`). No per-network
@@ -171,16 +171,16 @@ deployment needed — just fund the operator wallet with gas on each chain you s
 
 ```bash
 FACILITATOR_PRIVATE_KEY=0x... \
-BASE_RPC_URL=https://rpc-endpoints.superfluid.dev/base-mainnet \
-BASE_SEPOLIA_RPC_URL=https://rpc-endpoints.superfluid.dev/base-sepolia \
+AVALANCHE_RPC_URL=https://rpc-endpoints.superfluid.dev/avalanche-c \
+AVALANCHE_FUJI_RPC_URL=https://rpc-endpoints.superfluid.dev/avalanche-fuji \
 pnpm --filter @super-x402/facilitator dev
 ```
 
 - **`ENABLED_NETWORKS`** (optional, comma-separated) restricts which networks run — e.g.
-  `ENABLED_NETWORKS=base-sepolia` for a testnet-only node. Defaults to all (`base,base-sepolia`).
+  `ENABLED_NETWORKS=base-sepolia` for a testnet-only node. Defaults to all (`avalanche-c,avalanche-fuji`).
 - Each network's RPC falls back to a public default if its env var is unset.
-- **Testnet asset:** the plain x402 asset on Base Sepolia is **Circle's testnet USDC**
-  `0x036CbD53842c5426634e7929541eC2318f3dCF7e` (supports EIP-3009; free from the
+- **Testnet asset:** the plain x402 asset on Avalanche Fuji is **Circle's testnet USDC**
+  `0x5425890298aed601595a70AB815c96711a31Bc65` (supports EIP-3009; free from the
   [Circle faucet](https://faucet.circle.com)). The Superfluid `fUSDC` used by the stream path does
   **not** support EIP-3009, so the two paths use different assets on testnet.
 
@@ -235,16 +235,16 @@ The facilitator checks for existing permissions before attempting stream creatio
 
 ## Network Details
 
-- **Chain**: Base Mainnet (8453)
-- **USDC**: `0x833589fcd6edb6e08f4c7c32d4f71b54bda02913` (6 decimals)
-- **USDCx**: `0xd04383398dd2426297da660f9cca3d439af9ce1b` (18 decimals)
+- **Chain**: Base Mainnet (43114)
+- **USDC**: `0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e` (6 decimals)
+- **USDCx**: `0x288398f314d472b82c44855f3f6ff20b633c2a97` (18 decimals)
 
 ## Environment Variables
 
 **Facilitator** (`apps/facilitator/.env`):
 ```env
 FACILITATOR_PRIVATE_KEY=0x...
-BASE_RPC_URL=https://mainnet.base.org
+AVALANCHE_RPC_URL=https://api.avax.network/ext/bc/C/rpc
 PORT=4020
 ALLOWED_ORIGIN=http://localhost:5173
 ```
@@ -265,7 +265,7 @@ VITE_FACILITATOR_URL=http://localhost:4020
 -  **Stream status checking**: Grants access if stream already exists
 -  **ACL permission handling**: Checks and respects user permissions
 -  **Flexible stream amounts**: Customizable monthly stream rates
--  **Production-ready**: Fully tested on Base mainnet
+-  **Production-ready**: Fully tested on Avalanche C-Chain
 
 ## Why x402 + Superfluid?
 
@@ -289,7 +289,7 @@ Perfect for building paywalls that also enable real-time finance capabilities! T
 - [x402-axios Package](https://www.npmjs.com/package/x402-axios)
 - [Superfluid Protocol](https://www.superfluid.finance/)
 - [EIP-3009](https://eips.ethereum.org/EIPS/eip-3009)
-- [Base Network](https://base.org/)
+- [Avalanche Network](https://avax.network/)
 
 ## License
 
